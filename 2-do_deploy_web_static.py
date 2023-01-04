@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""
+A script that distributes an archive to your web servers,
+using the function do_deploy
+"""
 from fabric.api import *
 from os import path
 
@@ -15,7 +19,7 @@ def do_deploy(archive_path):
 
     file_name = archive_path.split("/")[-1]
     final = file_name.split(".")[0]
-    # format === versions/web_static_20170315003959.tgz
+    # format === versions/web_static_20221230062002.tgz
 
     run("mkdir -p /data/web_static/releases/{}".format(final))
     run("tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(file_name, final))
