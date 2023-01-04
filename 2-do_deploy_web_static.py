@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """
 A script that distributes an archive to your web servers,
 using the function do_deploy
@@ -7,6 +8,7 @@ from fabric.api import *
 from os import path
 
 env.hosts = ['54.157.132.219', '100.26.156.236']
+
 
 def do_deploy(archive_path):
     if not archive_path:
