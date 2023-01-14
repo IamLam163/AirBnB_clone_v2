@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """ Starts a Flask web application """
-from flask import Flask
-from flask import render_template
+from flask import Flask, render_template
 app = Flask(__name__)
 
 
@@ -19,7 +18,7 @@ def hbnb():
 
 @app.route('/c/<text>', strict_slashes=False)
 def c_route(text):
-    """ Returns C followed by the value of text """
+    """ Script displays the value of text"""
     text = text.replace('_', ' ')
     return "C {}".format(text)
 
@@ -27,20 +26,20 @@ def c_route(text):
 @app.route('/python', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def python_route(text="is cool"):
-    """ Returns Python followed by the vale of the text """
+    """method displays text"""
     text = text.replace('_', ' ')
     return "Python {}".format(text)
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
-def number_route(n):
-    """ Returns n is a number if n is an integer """
+def num_route(n):
+    """Return n if n is an int"""
     return "{} is a number".format(n)
 
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def num_template(n):
-    """ Returns an HTML page only if n is an integer """
+    """Returns an html page"""
     return render_template("5-number.html", num=n)
 
 
