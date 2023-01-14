@@ -1,16 +1,14 @@
-#!/usr/bin/env python3
-"""A script that displays Hello HBNB!"""
-
+#!/usr/bin/python3
+""" Starts a Flask web application """
 from flask import Flask
 app = Flask(__name__)
 
+
 @app.route('/', strict_slashes=False)
-def hello_hbnb():
-    """returns the output"""
-    return 'Hello HBNB!'
+def hello_hbn():
+    """ Return Hello HBNB! from 0.0.0.0:5000 """
+    return "Hello HBNB!"
 
 
 if __name__ == '__main__':
-    #app.run(host="0.0.0.0", port=5000, debug=True)
-    app.run(host="0.0.0.0")
-
+    app.run(host='0.0.0.0')
