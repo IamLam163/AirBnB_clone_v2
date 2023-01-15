@@ -11,7 +11,7 @@ class State(BaseModel, Base):
     """ State class """
     __tablename__ = 'states'
 
-    if (getenv(HBNB_TYPE_STORAGE) == 'db'):
+    if (getenv("HBNB_TYPE_STORAGE") == 'db'):
         name = Column(String(128), nullable=False)
         # cities = relationship('City')
         cities = relationship('City', cascade="all, delete", backref='state')
@@ -27,9 +27,21 @@ class State(BaseModel, Base):
             from models import storage
             related_cities = []
 
+            cities = storage.all(City)
+            # gets the entire storage- a dictionary
+            for key, value in cities.items():
+                # cities.value returns list of the city objects
+                if value.state_id == self.id:
+                    # if the object.state_id == self.id
+                    related_cities.append(value)
+                    # append to the cities list
+            return related_cities
+
+            """
             cities = storage.all(City).items() # gets the entire storage- a dictionary
             for city in cities.values(): # cities.value returns list of the city objects
                 if city.state_id == self.id: # if the object.state_id == self.id
                     related_cities.append(city) # append to the cities list
                 return related_cities
                 # state = relationship('State')
+                """
