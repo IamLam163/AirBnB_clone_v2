@@ -1,23 +1,25 @@
 #!/usr/bin/python3
-"""List states"""
+"""script starts a flask application"""
 
 from flask import Flask, render_template
-from models.__init__ import storage
-app = Flask(__name__)
+from models import storage
 
+
+app = Flask(__name__)
+"""flask app"""
 
 @app.route('/states_list', strict_slashes=False)
 def get_list():
-    """Get list of states from db"""
-    states = storage.all("State")
+    """displays a list of all states"""
+    states = storage.all('State')
     return render_template('7-states_list.html', states=states)
 
 
 @app.teardown_appcontext
 def tear_down(exception):
-    """Teardown method to close the db"""
+    """Method close the db session"""
     storage.close()
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0')
