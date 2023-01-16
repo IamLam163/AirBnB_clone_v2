@@ -27,6 +27,7 @@ class State(BaseModel, Base):
             from models import storage
             related_cities = []
 
+            """
             cities = storage.all(City)
             # gets the entire storage- a dictionary
             for key, value in cities.items():
@@ -36,12 +37,23 @@ class State(BaseModel, Base):
                     related_cities.append(value)
                     # append to the cities list
             return related_cities
-
             """
+
+            '''
             cities = storage.all(City).items() # gets the entire storage- a dictionary
             for city in cities.values(): # cities.value returns list of the city objects
                 if city.state_id == self.id: # if the object.state_id == self.id
                     related_cities.append(city) # append to the cities list
-                return related_cities
+            return related_cities
                 # state = relationship('State')
-                """
+                #the above block of code is buggy because, we use the items() on 43
+                #which returns a dict with a key and value pair but we return just the
+                #key and do not return the value of the key
+            '''
+
+            #another implementation of lines 43 to 47
+            cities = storage.all(City)
+            for key in cities.keys():
+                if cities[key].state_id == self.id:
+                    related_cities.append(cities[key])
+            return related_cities
