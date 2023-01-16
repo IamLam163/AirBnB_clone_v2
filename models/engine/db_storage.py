@@ -19,6 +19,7 @@ class DBStorage():
     __session = None
 
     def __init__(self):
+        """this is the constructor"""
         user = getenv("HBNB_MYSQL_USER")
         password = getenv("HBNB_MYSQL_PWD")
         host = getenv("HBNB_MYSQL_HOST")  # (here = localhost)
