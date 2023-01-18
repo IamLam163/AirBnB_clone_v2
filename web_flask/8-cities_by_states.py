@@ -8,12 +8,13 @@ from models import storage
 app = Flask(__name__)
 """flask app"""
 
+
 @app.teardown_appcontext
 def tear_down(self):
     """Method close the db session"""
     storage.close()
 
-    
+
 @app.route('/cities_by_states', strict_slashes=False)
 def cities_by_states():
     """displays the cities by states"""
