@@ -1,37 +1,37 @@
 #!/usr/bin/python3
-"""script starts a flask application"""
-
+"""Starts a flask app
+    listens to 0.0.0.0:5000
+"""
 from flask import Flask, render_template
-from models import storage
-
+from models.__init__ import storage
+from flask import Flask
 
 app = Flask(__name__)
-"""flask app"""
-
-
-@app.teardown_appcontext
-def tear_down(self):
-    """Method close the db session"""
-    storage.close()
 
 
 @app.route('/states', strict_slashes=False)
-def states():
-    """displays HTML states """
-    states = storage.all('State')
-    return render_template('9-states.html',
-                           states=states)
+def state():
+    """"displays an HTML page with a list of all in related cities.
+    sorted by name an id
+    """
+    state = storage.all('State')
+    return render_template('9-states.html', state=state)
 
 
-@app.route('/states/<id>')
+@app.route('/states/<id>', strict_slashes=False)
 def states_id(id):
-    """displays an HTML page"""
-    for key, value in storage.all('State').items():
-        if value.id == id:
-            return render_template('9-states.html', 
-                                   states=value)
-    return render_template('9-state.html')
+    """Displays an HTML page with info about <id>, if it exists."""
+    for state in storage.all("State").values():
+        if state.id == id:
+            return render_template("9-states.html", state=state)
+    return render_template("9-states.html")
+
+
+@app.teardown_appcontext
+def teardown(exc):
+    """removes the current SQLAlchemy session."""
+    storage.close()
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=5000)
